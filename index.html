@@ -10,14 +10,20 @@
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#060a13">
 <link rel="canonical" href="https://www.ragnarmc.com/">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="dns-prefetch" href="https://api.mcsrvstat.us">
+<link rel="preload" as="image" href="assets/logo.webp" fetchpriority="high">
+<link rel="preload" as="image" href="assets/banner.webp">
 
 <!-- Open Graph -->
 <meta property="og:site_name" content="RagnarMC">
 <meta property="og:title" content="RagnarMC — Norse Minecraft Server | Gens, Skyblock &amp; Pets">
 <meta property="og:description" content="Rise from Thrall to Allfader. Custom Gens farming, Skyblock, 17 collectable pets, dungeons &amp; live events. Java + Bedrock — play.ragnarmc.com">
-<meta property="og:image" content="https://vertidag-cell.github.io/ragnarmc-web/assets/banner.webp">
-<meta property="og:image:width" content="1800">
-<meta property="og:image:height" content="600">
+<meta property="og:image" content="https://vertidag-cell.github.io/ragnarmc-web/assets/og-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="RagnarMC — Norse Minecraft world banner">
 <meta property="og:url" content="https://www.ragnarmc.com/">
 <meta property="og:type" content="website">
@@ -27,7 +33,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="RagnarMC — Norse Minecraft Server">
 <meta name="twitter:description" content="Custom Gens • Skyblock • 17 Pets • Dungeons • Events. Java + Bedrock crossplay — play.ragnarmc.com">
-<meta name="twitter:image" content="https://vertidag-cell.github.io/ragnarmc-web/assets/banner.webp">
+<meta name="twitter:image" content="https://vertidag-cell.github.io/ragnarmc-web/assets/og-card.jpg">
 
 <!-- Structured data -->
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[
@@ -39,6 +45,13 @@
 {"@type":"Question","name":"Does RagnarMC support Bedrock and crossplay?","acceptedAnswer":{"@type":"Answer","text":"Yes. RagnarMC supports full crossplay — Java and Bedrock players share the same worlds. Connect with play.ragnarmc.com, port 25565 on Bedrock."}},
 {"@type":"Question","name":"What game modes does RagnarMC have?","acceptedAnswer":{"@type":"Answer","text":"RagnarMC features two custom modes: Ragnar Gens (generator farming with 17 pets, tool abilities, dungeons and rebirth) and Ragnar Skies (custom Skyblock with minions, island teams and crates)."}},
 {"@type":"Question","name":"What Minecraft version does RagnarMC run?","acceptedAnswer":{"@type":"Answer","text":"RagnarMC runs on Minecraft 1.21.x for both Java and Bedrock editions."}}
+,
+{"@type":"ItemList","name":"RagnarMC Ranks","itemListElement":[
+{"@type":"ListItem","position":1,"item":{"@type":"Product","name":"Viking Rank","url":"https://store.ragnarmc.com","offers":{"@type":"Offer","price":"4.99","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":2,"item":{"@type":"Product","name":"Berserker Rank","url":"https://store.ragnarmc.com","offers":{"@type":"Offer","price":"9.99","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":3,"item":{"@type":"Product","name":"Jarl Rank","url":"https://store.ragnarmc.com","offers":{"@type":"Offer","price":"19.99","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":4,"item":{"@type":"Product","name":"Odin Rank","url":"https://store.ragnarmc.com","offers":{"@type":"Offer","price":"39.99","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":5,"item":{"@type":"Product","name":"Allfader Rank","url":"https://store.ragnarmc.com","offers":{"@type":"Offer","price":"79.99","priceCurrency":"USD","availability":"https://schema.org/InStock"}}}
 ]}
 ]}</script>
 <link rel="icon" type="image/webp" href="assets/logo.webp">
@@ -164,6 +177,7 @@ section{position:relative;padding:110px 0;z-index:1}
 .rank img{width:100%;max-width:190px;margin:0 auto;filter:drop-shadow(0 16px 26px rgba(0,0,0,.55));transition:transform .3s}
 .rank:hover img{transform:scale(1.07)}
 .rank .nm{font-family:'Cinzel',serif;font-weight:700;letter-spacing:.14em;font-size:.86rem;margin-top:10px;color:var(--dim)}
+.rank .pr{font-weight:800;font-size:.92rem;margin-top:3px;color:var(--ac)}
 .rank.hot{background:linear-gradient(180deg,rgba(245,166,35,.10),var(--panel));border-color:rgba(245,166,35,.35)}
 .rank.hot .nm{color:var(--gold-2)}
 .rank .tagchip{position:absolute;top:10px;right:10px;background:linear-gradient(160deg,var(--gold-2),var(--gold));color:#221503;font-size:.62rem;font-weight:800;letter-spacing:.08em;padding:4px 9px;border-radius:99px;z-index:2}
@@ -310,11 +324,11 @@ footer a{color:var(--dim)}footer a:hover{color:var(--gold-2)}
     <h2 class="sec-title">From Thrall to <em>Allfader</em></h2>
     <p class="sec-sub">Five legendary ranks forged for the network — perks on every server, from bigger islands to /fly and thunder on join.</p>
     <div class="ranks">
-      <div class="rank reveal tilt c-v"><span class="tier">TIER I</span><img src="assets/rank-viking.webp" alt="Viking rank" loading="lazy"><div class="nm">VIKING</div></div>
-      <div class="rank reveal tilt c-b"><span class="tier">TIER II</span><img src="assets/rank-berserker.webp" alt="Berserker rank" loading="lazy"><div class="nm">BERSERKER</div></div>
-      <div class="rank reveal tilt hot c-j"><span class="tier">TIER III</span><span class="tagchip">POPULAR</span><img src="assets/rank-jarl.webp" alt="Jarl rank" loading="lazy"><div class="nm">JARL</div></div>
-      <div class="rank reveal tilt c-o"><span class="tier">TIER IV</span><img src="assets/rank-odin.webp" alt="Odin rank" loading="lazy"><div class="nm">ODIN</div></div>
-      <div class="rank reveal tilt c-a"><span class="tier">TIER V</span><img src="assets/rank-allfader.webp" alt="Allfader rank" loading="lazy"><div class="nm">ALLFADER</div></div>
+      <div class="rank reveal tilt c-v"><span class="tier">TIER I</span><img src="assets/rank-viking.webp" alt="Viking rank" loading="lazy"><div class="nm">VIKING</div><div class="pr">$4.99</div></div>
+      <div class="rank reveal tilt c-b"><span class="tier">TIER II</span><img src="assets/rank-berserker.webp" alt="Berserker rank" loading="lazy"><div class="nm">BERSERKER</div><div class="pr">$9.99</div></div>
+      <div class="rank reveal tilt hot c-j"><span class="tier">TIER III</span><span class="tagchip">POPULAR</span><img src="assets/rank-jarl.webp" alt="Jarl rank" loading="lazy"><div class="nm">JARL</div><div class="pr">$19.99</div></div>
+      <div class="rank reveal tilt c-o"><span class="tier">TIER IV</span><img src="assets/rank-odin.webp" alt="Odin rank" loading="lazy"><div class="nm">ODIN</div><div class="pr">$39.99</div></div>
+      <div class="rank reveal tilt c-a"><span class="tier">TIER V</span><img src="assets/rank-allfader.webp" alt="Allfader rank" loading="lazy"><div class="nm">ALLFADER</div><div class="pr">$79.99</div></div>
     </div>
     <div class="center" style="margin-top:44px">
       <a class="btn btn-gold" href="https://store.ragnarmc.com" target="_blank" rel="noopener">🛒 Browse the Store</a>
