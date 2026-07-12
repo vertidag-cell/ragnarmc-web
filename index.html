@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RagnarMC — Norse Minecraft Network | play.ragnarmc.com</title>
+<meta name="description" content="RagnarMC — the Norse Minecraft network. Gens, Skyblock & more. Java & Bedrock. Join play.ragnarmc.com!">
+<meta property="og:title" content="RagnarMC — Norse Minecraft Network">
+<meta property="og:description" content="Rise from Thrall to Allfader. Gens • Skyblock • Java & Bedrock — play.ragnarmc.com">
+<meta property="og:image" content="logo.png">
+<link rel="icon" type="image/png" href="logo.png">
+<style>
+  :root {
+    --gold: #f5a623; --gold-dim: #b57614; --aqua: #55ffff; --bg: #0b0e14;
+    --bg2: #111623; --card: #161d2e; --card2: #1b2438; --text: #e8e6e3;
+    --muted: #8b93a7; --green: #57bb5f; --purple: #b57aff; --red: #ff5e5e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; overflow-x: hidden; }
+
+  /* ---- bakgrund: subtil rutnätsdimma + gyllene glöd ---- */
+  .bg-glow { position: fixed; inset: 0; z-index: -1;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% -10%, rgba(245,166,35,.13), transparent),
+      radial-gradient(ellipse 40% 30% at 85% 110%, rgba(85,255,255,.06), transparent),
+      linear-gradient(rgba(255,255,255,.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.015) 1px, transparent 1px);
+    background-size: auto, auto, 44px 44px, 44px 44px; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+  /* ---- nav ---- */
+  nav { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(12px);
+    background: rgba(11,14,20,.82); border-bottom: 1px solid rgba(245,166,35,.15); }
+  .nav-inner { display: flex; align-items: center; gap: 28px; padding: 14px 20px; max-width: 1080px; margin: 0 auto; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.15rem; letter-spacing: .5px; }
+  .nav-logo img { width: 34px; height: 34px; border-radius: 8px; }
+  .nav-logo .r { color: var(--gold); } .nav-logo .mc { color: var(--aqua); }
+  nav a { color: var(--muted); text-decoration: none; font-size: .95rem; transition: color .2s; }
+  nav a:hover { color: var(--gold); }
+  .nav-links { display: flex; gap: 22px; margin-left: auto; align-items: center; }
+  .nav-cta { background: var(--gold); color: #17120a !important; font-weight: 700; padding: 8px 18px; border-radius: 8px; }
+  .nav-cta:hover { background: #ffc04d; }
+
+  /* ---- hero ---- */
+  header { text-align: center; padding: 88px 20px 66px; }
+  .hero-logo { width: 128px; height: 128px; border-radius: 26px; margin-bottom: 22px;
+    box-shadow: 0 0 60px rgba(245,166,35,.35); }
+  h1 { font-size: clamp(2.6rem, 7vw, 4.2rem); font-weight: 900; letter-spacing: 2px; }
+  h1 .r { color: var(--gold); text-shadow: 0 0 34px rgba(245,166,35,.5); }
+  h1 .mc { color: var(--aqua); text-shadow: 0 0 34px rgba(85,255,255,.4); }
+  .tagline { color: var(--muted); font-size: 1.2rem; margin-top: 10px; letter-spacing: 3px; text-transform: uppercase; }
+  .tagline b { color: var(--text); font-weight: 600; }
+
+  .ip-box { display: inline-flex; align-items: center; gap: 14px; margin-top: 34px;
+    background: var(--card); border: 1px solid rgba(245,166,35,.35); border-radius: 14px;
+    padding: 16px 22px; cursor: pointer; transition: all .25s; user-select: none; }
+  .ip-box:hover { border-color: var(--gold); box-shadow: 0 0 30px rgba(245,166,35,.2); transform: translateY(-2px); }
+  .ip-box .ip { font-family: 'Consolas', monospace; font-size: 1.35rem; font-weight: 700; color: var(--gold); }
+  .ip-box .copy-hint { font-size: .8rem; color: var(--muted); }
+  .status-pill { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px;
+    font-size: .95rem; color: var(--muted); }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); }
+  .dot.on { background: var(--green); box-shadow: 0 0 10px var(--green); animation: pulse 2s infinite; }
+  @keyframes pulse { 50% { opacity: .5; } }
+  .hero-btns { margin-top: 30px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn { padding: 13px 30px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 1rem; transition: all .22s; }
+  .btn-gold { background: var(--gold); color: #17120a; }
+  .btn-gold:hover { background: #ffc04d; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,166,35,.35); }
+  .btn-ghost { border: 1.5px solid rgba(255,255,255,.2); color: var(--text); }
+  .btn-ghost:hover { border-color: var(--aqua); color: var(--aqua); transform: translateY(-2px); }
+
+  /* ---- sektioner ---- */
+  section { padding: 72px 0; }
+  .sec-title { text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
+  .sec-title span { color: var(--gold); }
+  .sec-sub { text-align: center; color: var(--muted); margin-bottom: 44px; }
+
+  /* ---- gamemodes ---- */
+  .modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .mode { background: linear-gradient(160deg, var(--card), var(--bg2)); border: 1px solid rgba(255,255,255,.07);
+    border-radius: 16px; padding: 30px; transition: all .25s; position: relative; overflow: hidden; }
+  .mode::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--gold), transparent); }
+  .mode:hover { transform: translateY(-4px); border-color: rgba(245,166,35,.4); }
+  .mode h3 { font-size: 1.3rem; margin-bottom: 10px; }
+  .mode .emoji { font-size: 2rem; display: block; margin-bottom: 12px; }
+  .mode p { color: var(--muted); font-size: .95rem; line-height: 1.55; }
+  .mode .soon { position: absolute; top: 14px; right: 14px; background: rgba(181,122,255,.15);
+    color: var(--purple); font-size: .72rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; letter-spacing: 1px; }
+
+  /* ---- ranks ---- */
+  .ranks { display: grid; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr)); gap: 16px; }
+  .rank { background: var(--card); border: 1px solid rgba(255,255,255,.07); border-radius: 16px;
+    padding: 26px 20px; text-align: center; transition: all .25s; position: relative; }
+  .rank:hover { transform: translateY(-5px); }
+  .rank .rname { font-weight: 800; font-size: 1.15rem; letter-spacing: 1.5px; }
+  .rank .rprice { font-size: 1.6rem; font-weight: 900; margin: 12px 0 4px; }
+  .rank .rper { color: var(--muted); font-size: .82rem; line-height: 1.7; margin-top: 12px; text-align: left; }
+  .rank .rper li { list-style: none; }
+  .rank .rper li::before { content: '✦ '; color: var(--gold-dim); }
+  .rank a { display: block; margin-top: 16px; padding: 10px; border-radius: 8px; font-weight: 700;
+    font-size: .9rem; text-decoration: none; transition: all .2s; }
+  .rank.viking   { border-top: 3px solid var(--green); }  .rank.viking .rname { color: var(--green); }
+  .rank.berserker{ border-top: 3px solid var(--aqua); }   .rank.berserker .rname { color: var(--aqua); }
+  .rank.jarl     { border-top: 3px solid var(--gold); box-shadow: 0 0 34px rgba(245,166,35,.12); }
+  .rank.jarl .rname { color: var(--gold); }
+  .rank.odin     { border-top: 3px solid var(--red); }    .rank.odin .rname { color: var(--red); }
+  .rank.allfader { border-top: 3px solid var(--purple); background: linear-gradient(170deg, #1c1530, var(--card)); }
+  .rank.allfader .rname { color: var(--purple); }
+  .rank a { background: rgba(255,255,255,.07); color: var(--text); }
+  .rank a:hover { background: var(--gold); color: #17120a; }
+  .rank .pop { position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: #17120a; font-size: .7rem; font-weight: 800; padding: 4px 12px;
+    border-radius: 20px; letter-spacing: 1px; white-space: nowrap; }
+
+  /* ---- features ---- */
+  .feats { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+  .feat { background: var(--card); border: 1px solid rgba(255,255,255,.06); border-radius: 12px;
+    padding: 20px; display: flex; gap: 14px; align-items: flex-start; transition: border-color .2s; }
+  .feat:hover { border-color: rgba(85,255,255,.3); }
+  .feat .fi { font-size: 1.4rem; }
+  .feat b { display: block; margin-bottom: 4px; font-size: .95rem; }
+  .feat p { color: var(--muted); font-size: .84rem; line-height: 1.5; }
+
+  /* ---- join ---- */
+  .join-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .join-card { background: var(--card); border-radius: 16px; padding: 28px; border: 1px solid rgba(255,255,255,.07); }
+  .join-card h3 { margin-bottom: 14px; font-size: 1.15rem; }
+  .join-card ol { margin-left: 20px; color: var(--muted); font-size: .93rem; line-height: 2; }
+  .join-card code { background: rgba(245,166,35,.12); color: var(--gold); padding: 2px 8px; border-radius: 6px; font-size: .88rem; }
+
+  footer { border-top: 1px solid rgba(255,255,255,.07); padding: 34px 20px; text-align: center; color: var(--muted); font-size: .88rem; }
+  footer a { color: var(--gold); text-decoration: none; }
+  footer .foot-links { display: flex; gap: 22px; justify-content: center; margin-bottom: 14px; flex-wrap: wrap; }
+
+  .toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(80px);
+    background: var(--gold); color: #17120a; font-weight: 700; padding: 12px 26px; border-radius: 10px;
+    transition: transform .3s; z-index: 100; }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  @media (max-width: 640px) { .nav-links a:not(.nav-cta) { display: none; } }
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo"><img src="logo.png" alt="RagnarMC"><span><span class="r">RAGNAR</span><span class="mc">MC</span></span></div>
+    <div class="nav-links">
+      <a href="#gamemodes">Gamemodes</a>
+      <a href="#ranks">Ranks</a>
+      <a href="#join">How to join</a>
+      <a href="https://discord.gg/FnFb5zNdnD" target="_blank">Discord</a>
+      <a class="nav-cta" href="https://store.ragnarmc.com" target="_blank">Store</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <img class="hero-logo" src="logo.png" alt="RagnarMC logo">
+  <h1><span class="r">RAGNAR</span><span class="mc">MC</span></h1>
+  <p class="tagline"><b>Lifesteal</b> • <b>Gens</b> • <b>Skies</b></p>
+
+  <div class="ip-box" onclick="copyIP()" title="Click to copy">
+    <span class="ip">play.ragnarmc.com</span>
+    <span class="copy-hint">⧉ click to copy</span>
+  </div>
+  <div class="status-pill"><span class="dot" id="statusDot"></span><span id="statusText">Checking server status…</span></div>
+
+  <div class="hero-btns">
+    <a class="btn btn-gold" href="https://store.ragnarmc.com" target="_blank">🛒 Visit the Store</a>
+    <a class="btn btn-ghost" href="https://discord.gg/FnFb5zNdnD" target="_blank">Join our Discord</a>
+  </div>
+</header>
+
+<section id="gamemodes">
+  <div class="wrap">
+    <h2 class="sec-title">Choose your <span>saga</span></h2>
+    <p class="sec-sub">Three realms. One legend — yours.</p>
+    <div class="modes">
+      <div class="mode">
+        <span class="emoji">⚙️</span>
+        <h3>Ragnar Gens</h3>
+        <p>Build generator empires, farm the great fields of Midgard, unlock 29 viking tool boosts — from Shield Wall raids to Ragnarök itself. Gen enchants, hatchable pets, offline earnings & more.</p>
+      </div>
+      <div class="mode">
+        <span class="emoji">🏝️</span>
+        <h3>Ragnar Skies</h3>
+        <p>Claim your floating island, expand it into a realm worthy of the gods. Classic skyblock — reforged with norse steel.</p>
+      </div>
+      <div class="mode">
+        <span class="soon">COMING SOON</span>
+        <span class="emoji">⚔️</span>
+        <h3>Lifesteal</h3>
+        <p>Steal hearts. Fear death. The most brutal realm of RagnarMC is being forged as we speak.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ranks" style="background: linear-gradient(180deg, transparent, rgba(245,166,35,.03), transparent);">
+  <div class="wrap">
+    <h2 class="sec-title">Rise from <span>Thrall</span> to <span>Allfader</span></h2>
+    <p class="sec-sub">Permanent ranks — Gens, Skyblock &amp; network-wide perks, forever.</p>
+    <div class="ranks" id="rankGrid">
+      <div class="rank viking">
+        <div class="rname">VIKING</div><div class="rprice" data-rank="viking">49 kr</div>
+        <ul class="rper"><li>+10% tokens</li><li>+5% sell price</li><li>2h offline gens</li><li>/hat • 2 homes</li><li>🏝 Island border+ • team 9</li><li>📦 Daily kit • 2 vaults</li></ul>
+        <a href="https://store.ragnarmc.com" target="_blank">Purchase</a>
+      </div>
+      <div class="rank berserker">
+        <div class="rname">BERSERKER</div><div class="rprice" data-rank="berserker">99 kr</div>
+        <ul class="rper"><li>+20% tokens</li><li>+10% sell price</li><li>4h offline gens</li><li>/feed • chat colors</li><li>🏝 Island border+ • team 10</li><li>📦 Daily kit • 3 vaults</li></ul>
+        <a href="https://store.ragnarmc.com" target="_blank">Purchase</a>
+      </div>
+      <div class="rank jarl">
+        <span class="pop">★ MOST POPULAR</span>
+        <div class="rname">JARL</div><div class="rprice" data-rank="jarl">199 kr</div>
+        <ul class="rper"><li><b>✈ /fly</b></li><li>+35% tokens</li><li>8h offline gens</li><li>/ec • /nick • 5 homes</li><li>🏝 Large island • team 12</li><li>📦 Daily leg-key kit • 5 vaults</li></ul>
+        <a href="https://store.ragnarmc.com" target="_blank">Purchase</a>
+      </div>
+      <div class="rank odin">
+        <div class="rname">ODIN</div><div class="rprice" data-rank="odin">399 kr</div>
+        <ul class="rper"><li>+50% tokens</li><li>+20% sell price</li><li>24h offline gens</li><li>/heal • /repair</li><li>🏝 Huge island • team 14</li><li>📦 Daily kit ×2 keys • 7 vaults</li></ul>
+        <a href="https://store.ragnarmc.com" target="_blank">Purchase</a>
+      </div>
+      <div class="rank allfader">
+        <div class="rname">ALLFADER</div><div class="rprice" data-rank="allfader">799 kr</div>
+        <ul class="rper"><li>⚡ Thunder entrance</li><li>✨ Particle aura</li><li>+75% tokens</li><li>48h offline gens</li><li>🏝 MAX island • team 16</li><li>📦 Best daily kit • 10 vaults</li></ul>
+        <a href="https://store.ragnarmc.com" target="_blank">Purchase</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <h2 class="sec-title">Forged <span>different</span></h2>
+    <p class="sec-sub">No copy-paste server. Everything below is custom-built.</p>
+    <div class="feats">
+      <div class="feat"><span class="fi">🗡️</span><div><b>29 Tool Boosts</b><p>Mjölnir strikes, Shield Wall raids, Ragnarök — earn tokens farming, spend them on power.</p></div></div>
+      <div class="feat"><span class="fi">⚡</span><div><b>Gen Enchants</b><p>Speed, Fortune, Overflow, Quality & Auto-Sell — upgrade every generator individually.</p></div></div>
+      <div class="feat"><span class="fi">🥚</span><div><b>Hatchable Gen Pets</b><p>Six companions from Miner Mole to Yggdrasil Sprout. Hatch, level, profit.</p></div></div>
+      <div class="feat"><span class="fi">⌛</span><div><b>Offline Earnings</b><p>Your generators keep working while you sleep. Claim the loot when you return.</p></div></div>
+      <div class="feat"><span class="fi">🪙</span><div><b>Coinflip Gambling</b><p>Bet money or tokens against other players. Winner takes all.</p></div></div>
+      <div class="feat"><span class="fi">📱</span><div><b>Java + Bedrock</b><p>Play from PC, phone or console — no Java account needed for Bedrock.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="join">
+  <div class="wrap">
+    <h2 class="sec-title">How to <span>join</span></h2>
+    <p class="sec-sub">Two editions, one Valhalla.</p>
+    <div class="join-grid">
+      <div class="join-card">
+        <h3>☕ Java Edition (PC)</h3>
+        <ol>
+          <li>Multiplayer → Add Server</li>
+          <li>Address: <code>play.ragnarmc.com</code></li>
+          <li>Version 1.9 – latest <b>(1.21+ recommended)</b></li>
+        </ol>
+      </div>
+      <div class="join-card">
+        <h3>📱 Bedrock (Phone / Console / Win10)</h3>
+        <ol>
+          <li>Servers → Add Server</li>
+          <li>Address: <code>play.ragnarmc.com</code></li>
+          <li>Port: <code>25565</code> — no Java account needed!</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-links">
+    <a href="https://store.ragnarmc.com" target="_blank">Store</a>
+    <a href="https://discord.gg/FnFb5zNdnD" target="_blank">Discord</a>
+    <a href="#gamemodes">Gamemodes</a>
+    <a href="#ranks">Ranks</a>
+  </div>
+  <p>© 2026 RagnarMC — not affiliated with Mojang or Microsoft.</p>
+</footer>
+
+<div class="toast" id="toast">✓ IP copied — see you in Valhalla!</div>
+
+<script>
+// ---- kopiera IP ----
+function copyIP() {
+  navigator.clipboard.writeText('play.ragnarmc.com').then(() => {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  });
+}
+
+// ---- live serverstatus (mcstatus.io, gratis publikt API) ----
+fetch('https://api.mcstatus.io/v2/status/java/play.ragnarmc.com')
+  .then(r => r.json())
+  .then(d => {
+    const dot = document.getElementById('statusDot');
+    const txt = document.getElementById('statusText');
+    if (d.online) {
+      dot.classList.add('on');
+      txt.textContent = d.players.online + ' player' + (d.players.online === 1 ? '' : 's') + ' online now';
+    } else {
+      txt.textContent = 'Server offline — check Discord for news';
+    }
+  }).catch(() => {
+    document.getElementById('statusText').textContent = 'play.ragnarmc.com';
+  });
+
+// ---- live-priser från Tebex Headless API (publik token — säker i frontend) ----
+const TEBEX_TOKEN = '13oqp-ac1707bfc063c0af7f63d41ea297c8242a235425';
+fetch('https://headless.tebex.io/api/accounts/' + TEBEX_TOKEN + '/categories?includePackages=1')
+  .then(r => r.json())
+  .then(d => {
+    const packs = (d.data || []).flatMap(c => c.packages || []);
+    document.querySelectorAll('.rprice[data-rank]').forEach(el => {
+      const p = packs.find(x => x.name.toLowerCase().includes(el.dataset.rank));
+      if (p && p.total_price != null) {
+        el.textContent = p.total_price + ' ' + (p.currency || 'kr');
+        // länka köpknappen direkt till paketet i butiken
+        const btn = el.parentElement.querySelector('a');
+        if (btn && p.id) btn.href = 'https://store.ragnarmc.com/package/' + p.id;
+      }
+    });
+  }).catch(() => {}); // butiken visas med fallback-priser om API:t inte svarar
+</script>
+</body>
+</html>

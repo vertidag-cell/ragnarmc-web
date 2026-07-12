@@ -1,0 +1,135 @@
+/* ============================================================
+   RagnarMC — Tebex store-tema (guld/aqua/norse-mörkt)
+   Klistras in i Tebex-editorn: Webstore → layout.html
+   → hitta </head> → lägg HELA blocket nedan PÅ RADEN FÖRE,
+   inslaget i <style> ... </style>
+   ============================================================ */
+
+:root {
+  --rg-gold: #f5a623;
+  --rg-gold-hi: #ffc04d;
+  --rg-aqua: #55ffff;
+  --rg-bg: #0b0e14;
+  --rg-bg2: #111623;
+  --rg-card: #161d2e;
+  --rg-border: rgba(245, 166, 35, 0.18);
+  --rg-text: #e8e6e3;
+  --rg-muted: #8b93a7;
+}
+
+/* ---- grund ---- */
+body {
+  background: var(--rg-bg) !important;
+  background-image:
+    radial-gradient(ellipse 60% 40% at 50% -10%, rgba(245,166,35,.10), transparent),
+    linear-gradient(rgba(255,255,255,.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.012) 1px, transparent 1px) !important;
+  background-size: auto, 44px 44px, 44px 44px !important;
+  background-attachment: fixed !important;
+  color: var(--rg-text) !important;
+}
+
+h1, h2, h3, h4, h5 { color: var(--rg-text) !important; }
+a { color: var(--rg-gold); }
+a:hover { color: var(--rg-gold-hi); }
+p, li, span, td { color: inherit; }
+
+/* ---- header/navigation ---- */
+header, nav, .navbar, .site-header, .header {
+  background: rgba(11, 14, 20, 0.92) !important;
+  border-bottom: 1px solid var(--rg-border) !important;
+  backdrop-filter: blur(10px);
+}
+nav a, .navbar a, .site-header a { color: var(--rg-muted) !important; }
+nav a:hover, .navbar a:hover, .site-header a:hover { color: var(--rg-gold) !important; }
+
+/* ---- kort/paneler: paket, sidebar, moduler ---- */
+.site-content, .store-products, main {
+  background: transparent !important;
+}
+.card, .panel, .module, .package, .package-entry, .sidebar-module,
+.store-products > div, aside > div,
+[class*="package-"], [class*="module-"] {
+  background: var(--rg-card) !important;
+  border: 1px solid rgba(255, 255, 255, 0.07) !important;
+  border-radius: 14px !important;
+  color: var(--rg-text) !important;
+  transition: transform .2s, border-color .2s, box-shadow .2s;
+}
+.package:hover, .package-entry:hover, [class*="package-"]:hover {
+  transform: translateY(-3px);
+  border-color: var(--rg-border) !important;
+  box-shadow: 0 8px 30px rgba(245, 166, 35, 0.12) !important;
+}
+
+/* ---- priser ---- */
+.price, .package-price, [class*="price"] {
+  color: var(--rg-gold) !important;
+  font-weight: 800 !important;
+}
+
+/* ---- knappar ---- */
+button, .btn, .button, input[type="submit"],
+a.btn-primary, .btn-primary, .checkout-button, .add-to-basket {
+  background: var(--rg-gold) !important;
+  color: #17120a !important;
+  border: none !important;
+  border-radius: 9px !important;
+  font-weight: 700 !important;
+  transition: all .2s !important;
+}
+button:hover, .btn:hover, .button:hover, input[type="submit"]:hover,
+.btn-primary:hover, .checkout-button:hover, .add-to-basket:hover {
+  background: var(--rg-gold-hi) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(245, 166, 35, 0.3) !important;
+}
+.btn-secondary, .btn-outline {
+  background: transparent !important;
+  border: 1.5px solid rgba(255,255,255,.22) !important;
+  color: var(--rg-text) !important;
+}
+.btn-secondary:hover, .btn-outline:hover {
+  border-color: var(--rg-aqua) !important;
+  color: var(--rg-aqua) !important;
+}
+
+/* ---- sidebar-widgets (topdonator, serverstatus, mål) ---- */
+aside, .sidebar {  background: transparent !important; }
+.sidebar h3, aside h3, .module-header {
+  color: var(--rg-gold) !important;
+  border-bottom: 1px solid var(--rg-border) !important;
+  padding-bottom: 8px;
+}
+
+/* ---- formulär ---- */
+input, select, textarea {
+  background: var(--rg-bg2) !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  color: var(--rg-text) !important;
+  border-radius: 8px !important;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--rg-gold) !important;
+  outline: none !important;
+}
+
+/* ---- tabeller (topdonators m.m.) ---- */
+table { background: transparent !important; }
+th { color: var(--rg-gold) !important; }
+tr { border-color: rgba(255,255,255,.06) !important; }
+
+/* ---- footer ---- */
+footer, .site-footer {
+  background: var(--rg-bg2) !important;
+  border-top: 1px solid var(--rg-border) !important;
+  color: var(--rg-muted) !important;
+}
+
+/* ---- kategori-beskrivningar ---- */
+.category-description, .text-content {
+  background: var(--rg-card) !important;
+  border-left: 3px solid var(--rg-gold) !important;
+  border-radius: 10px !important;
+  padding: 16px 20px !important;
+}
