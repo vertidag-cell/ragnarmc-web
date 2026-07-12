@@ -3,233 +3,258 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RagnarMC — Norse Minecraft Network | play.ragnarmc.com</title>
-<meta name="description" content="RagnarMC — the Norse Minecraft network. Gens, Skyblock & more. Java & Bedrock. Join play.ragnarmc.com!">
+<title>RagnarMC — Norse Minecraft Network | Gens • Skyblock • Crossplay</title>
+<meta name="description" content="RagnarMC is a Norse Minecraft network: custom Gens farming, Skyblock, 17 collectable pets, dungeons and live events. Java + Bedrock crossplay — join play.ragnarmc.com">
 <meta property="og:title" content="RagnarMC — Norse Minecraft Network">
-<meta property="og:description" content="Rise from Thrall to Allfader. Gens • Skyblock • Java & Bedrock — play.ragnarmc.com">
-<meta property="og:image" content="logo.png">
-<link rel="icon" type="image/png" href="logo.png">
+<meta property="og:description" content="Rise from Thrall to Allfader. Custom Gens • Skyblock • Pets • Dungeons. Java + Bedrock — play.ragnarmc.com">
+<meta property="og:image" content="https://vertidag-cell.github.io/ragnarmc-web/assets/banner.webp">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#060a13">
+<link rel="icon" type="image/webp" href="assets/logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --gold: #f5a623; --gold-dim: #b57614; --aqua: #55ffff; --bg: #0b0e14;
-    --bg2: #111623; --card: #161d2e; --card2: #1b2438; --text: #e8e6e3;
-    --muted: #8b93a7; --green: #57bb5f; --purple: #b57aff; --red: #ff5e5e;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; overflow-x: hidden; }
+:root{
+  --bg:#060a13; --bg-2:#0a1120; --panel:rgba(13,20,36,.72); --panel-2:rgba(17,26,46,.85);
+  --line:rgba(255,255,255,.07); --line-hi:rgba(245,166,35,.45);
+  --gold:#f5a623; --gold-2:#ffd76a; --gold-3:#b97a10;
+  --blue:#3f8fff; --blue-2:#7fd4ff; --green:#7ee83b; --pink:#ff4fa0;
+  --txt:#eef2f9; --dim:#94a0b5; --dim-2:#5f6b80;
+  --r:18px; --shadow:0 24px 60px -12px rgba(0,0,0,.55);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+::selection{background:rgba(245,166,35,.35)}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;line-height:1.65;overflow-x:hidden;
+  background-image:
+    radial-gradient(1100px 640px at 50% -12%, rgba(63,143,255,.10), transparent 62%),
+    radial-gradient(900px 520px at 88% 8%, rgba(245,166,35,.07), transparent 60%),
+    radial-gradient(700px 700px at 4% 40%, rgba(63,143,255,.05), transparent 60%);
+}
+h1,h2,h3,.display{font-family:'Cinzel',serif}
+a{text-decoration:none;color:var(--gold-2)}
+img{max-width:100%;display:block}
+.wrap{max-width:1160px;margin:0 auto;padding:0 26px}
 
-  /* ---- bakgrund: subtil rutnätsdimma + gyllene glöd ---- */
-  .bg-glow { position: fixed; inset: 0; z-index: -1;
-    background:
-      radial-gradient(ellipse 60% 40% at 50% -10%, rgba(245,166,35,.13), transparent),
-      radial-gradient(ellipse 40% 30% at 85% 110%, rgba(85,255,255,.06), transparent),
-      linear-gradient(rgba(255,255,255,.015) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,.015) 1px, transparent 1px);
-    background-size: auto, auto, 44px 44px, 44px 44px; }
+/* ─── grain + embers ─── */
+.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.embers{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.embers span{position:absolute;bottom:-12px;width:4px;height:4px;border-radius:50%;
+  background:radial-gradient(circle,var(--gold-2),transparent 70%);
+  animation:rise linear infinite;opacity:0}
+@keyframes rise{
+  0%{transform:translateY(0) translateX(0) scale(1);opacity:0}
+  8%{opacity:.85}
+  60%{opacity:.5}
+  100%{transform:translateY(-108vh) translateX(var(--sway,30px)) scale(.35);opacity:0}
+}
 
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+/* ─── nav ─── */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+nav.scrolled{background:rgba(6,10,19,.86);backdrop-filter:blur(16px);border-color:var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+.brand{display:flex;align-items:center;gap:12px;font-family:'Cinzel',serif;font-weight:900;font-size:1.28rem;letter-spacing:.1em;color:var(--txt)}
+.brand img{width:42px;height:42px;border-radius:50%;box-shadow:0 0 18px rgba(245,166,35,.35)}
+.brand b{color:var(--gold)}
+.navlinks{display:flex;gap:30px;align-items:center;font-size:.93rem;font-weight:600}
+.navlinks>a{color:var(--dim);transition:color .2s;position:relative}
+.navlinks>a:hover{color:var(--gold-2)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 26px;border-radius:12px;font-weight:800;font-size:.95rem;letter-spacing:.02em;cursor:pointer;border:none;transition:transform .16s cubic-bezier(.2,.9,.3,1.4),box-shadow .25s,border-color .2s}
+.btn-gold{background:linear-gradient(160deg,var(--gold-2) 0%,var(--gold) 45%,var(--gold-3) 100%);color:#221503;box-shadow:0 6px 24px -4px rgba(245,166,35,.55),inset 0 1px 0 rgba(255,255,255,.5)}
+.btn-gold:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 12px 34px -6px rgba(245,166,35,.7),inset 0 1px 0 rgba(255,255,255,.5)}
+.btn-glass{background:rgba(255,255,255,.05);color:var(--txt);border:1px solid var(--line);backdrop-filter:blur(8px)}
+.btn-glass:hover{border-color:var(--line-hi);color:var(--gold-2);transform:translateY(-2px)}
 
-  /* ---- nav ---- */
-  nav { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(12px);
-    background: rgba(11,14,20,.82); border-bottom: 1px solid rgba(245,166,35,.15); }
-  .nav-inner { display: flex; align-items: center; gap: 28px; padding: 14px 20px; max-width: 1080px; margin: 0 auto; }
-  .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.15rem; letter-spacing: .5px; }
-  .nav-logo img { width: 34px; height: 34px; border-radius: 8px; }
-  .nav-logo .r { color: var(--gold); } .nav-logo .mc { color: var(--aqua); }
-  nav a { color: var(--muted); text-decoration: none; font-size: .95rem; transition: color .2s; }
-  nav a:hover { color: var(--gold); }
-  .nav-links { display: flex; gap: 22px; margin-left: auto; align-items: center; }
-  .nav-cta { background: var(--gold); color: #17120a !important; font-weight: 700; padding: 8px 18px; border-radius: 8px; }
-  .nav-cta:hover { background: #ffc04d; }
+/* ─── hero ─── */
+header{position:relative;padding:170px 0 90px;text-align:center;z-index:1}
+.hero-logo{width:190px;height:190px;margin:0 auto 26px;border-radius:50%;position:relative;animation:float 7s ease-in-out infinite}
+.hero-logo img{border-radius:50%;position:relative;z-index:2;box-shadow:0 30px 70px -18px rgba(0,0,0,.8)}
+.hero-logo::before{content:"";position:absolute;inset:-14px;border-radius:50%;
+  background:conic-gradient(from 0deg,transparent 0 70%,rgba(245,166,35,.9) 82%,transparent 94%);
+  animation:spin 6s linear infinite;filter:blur(1px)}
+.hero-logo::after{content:"";position:absolute;inset:-46px;border-radius:50%;z-index:-1;
+  background:radial-gradient(circle,rgba(245,166,35,.28),transparent 66%)}
+@keyframes float{50%{transform:translateY(-14px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.kicker{display:inline-flex;align-items:center;gap:12px;color:var(--gold);font-weight:700;letter-spacing:.42em;font-size:.74rem;text-transform:uppercase;margin-bottom:20px}
+.kicker::before,.kicker::after{content:"";width:44px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.kicker::after{background:linear-gradient(90deg,var(--gold),transparent)}
+h1.title{font-size:clamp(3.2rem,9.5vw,6.4rem);font-weight:900;letter-spacing:.05em;line-height:1.02;
+  background:linear-gradient(180deg,#fff 8%,var(--gold-2) 52%,var(--gold) 78%,var(--gold-3));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 10px 40px rgba(245,166,35,.28));position:relative}
+.tagline{color:var(--dim);font-size:1.16rem;max-width:600px;margin:22px auto 40px;font-weight:500}
+.tagline b{color:var(--txt)}
+.ip-row{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center;margin-bottom:16px}
+.ipbox{display:inline-flex;align-items:center;gap:16px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:15px 20px;backdrop-filter:blur(12px);transition:border-color .25s,box-shadow .25s}
+.ipbox:hover{border-color:var(--line-hi);box-shadow:0 0 34px -6px rgba(245,166,35,.35)}
+.ipbox code{font-size:1.32rem;font-weight:800;color:var(--gold-2);letter-spacing:.04em;font-family:'Inter',monospace}
+.copy{background:linear-gradient(160deg,var(--gold-2),var(--gold));color:#221503;border:none;border-radius:10px;padding:10px 18px;font-weight:800;cursor:pointer;font-size:.88rem;transition:transform .14s}
+.copy:hover{transform:scale(1.06)}
+.bedrock{color:var(--dim);font-size:.88rem;margin-bottom:26px}
+.bedrock b{color:var(--blue-2)}
+.status{display:inline-flex;align-items:center;gap:10px;background:rgba(126,232,59,.07);border:1px solid rgba(126,232,59,.28);color:var(--green);border-radius:99px;padding:8px 20px;font-weight:700;font-size:.9rem;backdrop-filter:blur(8px)}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green);animation:pulse 2.2s infinite}
+@keyframes pulse{50%{opacity:.35}}
 
-  /* ---- hero ---- */
-  header { text-align: center; padding: 88px 20px 66px; }
-  .hero-logo { width: 128px; height: 128px; border-radius: 26px; margin-bottom: 22px;
-    box-shadow: 0 0 60px rgba(245,166,35,.35); }
-  h1 { font-size: clamp(2.6rem, 7vw, 4.2rem); font-weight: 900; letter-spacing: 2px; }
-  h1 .r { color: var(--gold); text-shadow: 0 0 34px rgba(245,166,35,.5); }
-  h1 .mc { color: var(--aqua); text-shadow: 0 0 34px rgba(85,255,255,.4); }
-  .tagline { color: var(--muted); font-size: 1.2rem; margin-top: 10px; letter-spacing: 3px; text-transform: uppercase; }
-  .tagline b { color: var(--text); font-weight: 600; }
+.banner-frame{max-width:960px;margin:74px auto 0;padding:0 26px;perspective:1200px}
+.banner-tilt{border-radius:22px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow),0 0 60px -18px rgba(63,143,255,.4);transition:transform .35s ease;transform-style:preserve-3d;position:relative}
+.banner-tilt::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.09) 46%,transparent 60%);transform:translateX(-120%);animation:sheen 6.5s 2s infinite}
+@keyframes sheen{12%{transform:translateX(120%)}100%{transform:translateX(120%)}}
 
-  .ip-box { display: inline-flex; align-items: center; gap: 14px; margin-top: 34px;
-    background: var(--card); border: 1px solid rgba(245,166,35,.35); border-radius: 14px;
-    padding: 16px 22px; cursor: pointer; transition: all .25s; user-select: none; }
-  .ip-box:hover { border-color: var(--gold); box-shadow: 0 0 30px rgba(245,166,35,.2); transform: translateY(-2px); }
-  .ip-box .ip { font-family: 'Consolas', monospace; font-size: 1.35rem; font-weight: 700; color: var(--gold); }
-  .ip-box .copy-hint { font-size: .8rem; color: var(--muted); }
-  .status-pill { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px;
-    font-size: .95rem; color: var(--muted); }
-  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); }
-  .dot.on { background: var(--green); box-shadow: 0 0 10px var(--green); animation: pulse 2s infinite; }
-  @keyframes pulse { 50% { opacity: .5; } }
-  .hero-btns { margin-top: 30px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-  .btn { padding: 13px 30px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 1rem; transition: all .22s; }
-  .btn-gold { background: var(--gold); color: #17120a; }
-  .btn-gold:hover { background: #ffc04d; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,166,35,.35); }
-  .btn-ghost { border: 1.5px solid rgba(255,255,255,.2); color: var(--text); }
-  .btn-ghost:hover { border-color: var(--aqua); color: var(--aqua); transform: translateY(-2px); }
+/* ─── sections ─── */
+section{position:relative;padding:110px 0;z-index:1}
+.sec-kicker{text-align:center;color:var(--gold);letter-spacing:.4em;font-size:.72rem;font-weight:700;text-transform:uppercase;margin-bottom:14px}
+.sec-title{text-align:center;font-size:clamp(1.9rem,4.4vw,2.9rem);font-weight:900;letter-spacing:.04em;margin-bottom:14px}
+.sec-title em{font-style:normal;background:linear-gradient(180deg,var(--gold-2),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sec-sub{text-align:center;color:var(--dim);max-width:580px;margin:0 auto 60px;font-size:1.03rem}
 
-  /* ---- sektioner ---- */
-  section { padding: 72px 0; }
-  .sec-title { text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
-  .sec-title span { color: var(--gold); }
-  .sec-sub { text-align: center; color: var(--muted); margin-bottom: 44px; }
+/* rank ladder */
+.ranks{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:20px;align-items:end}
+.rank{position:relative;text-align:center;padding:18px 10px 22px;border-radius:var(--r);background:var(--panel);border:1px solid var(--line);transition:transform .3s cubic-bezier(.2,.9,.3,1.2),border-color .25s,box-shadow .3s;will-change:transform}
+.rank:hover{transform:translateY(-10px) scale(1.03);border-color:var(--line-hi);box-shadow:0 26px 50px -16px rgba(0,0,0,.7),0 0 44px -10px rgba(245,166,35,.35)}
+.rank img{width:100%;max-width:190px;margin:0 auto;filter:drop-shadow(0 16px 26px rgba(0,0,0,.55));transition:transform .3s}
+.rank:hover img{transform:scale(1.07)}
+.rank .nm{font-family:'Cinzel',serif;font-weight:700;letter-spacing:.14em;font-size:.86rem;margin-top:10px;color:var(--dim)}
+.rank.hot{background:linear-gradient(180deg,rgba(245,166,35,.10),var(--panel));border-color:rgba(245,166,35,.35)}
+.rank.hot .nm{color:var(--gold-2)}
+.rank .tagchip{position:absolute;top:10px;right:10px;background:linear-gradient(160deg,var(--gold-2),var(--gold));color:#221503;font-size:.62rem;font-weight:800;letter-spacing:.08em;padding:4px 9px;border-radius:99px;z-index:2}
 
-  /* ---- gamemodes ---- */
-  .modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-  .mode { background: linear-gradient(160deg, var(--card), var(--bg2)); border: 1px solid rgba(255,255,255,.07);
-    border-radius: 16px; padding: 30px; transition: all .25s; position: relative; overflow: hidden; }
-  .mode::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, var(--gold), transparent); }
-  .mode:hover { transform: translateY(-4px); border-color: rgba(245,166,35,.4); }
-  .mode h3 { font-size: 1.3rem; margin-bottom: 10px; }
-  .mode .emoji { font-size: 2rem; display: block; margin-bottom: 12px; }
-  .mode p { color: var(--muted); font-size: .95rem; line-height: 1.55; }
-  .mode .soon { position: absolute; top: 14px; right: 14px; background: rgba(181,122,255,.15);
-    color: var(--purple); font-size: .72rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; letter-spacing: 1px; }
+/* game modes */
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:26px}
+.mode{position:relative;overflow:hidden;border-radius:22px;padding:44px 38px;background:var(--panel-2);border:1px solid var(--line);transition:transform .3s,border-color .25s,box-shadow .3s}
+.mode:hover{transform:translateY(-7px);border-color:var(--line-hi);box-shadow:var(--shadow)}
+.mode::before{content:attr(data-rune);position:absolute;right:-14px;bottom:-58px;font-size:11rem;font-family:'Cinzel',serif;opacity:.05;color:var(--gold);pointer-events:none}
+.mode .chip{display:inline-block;font-size:.7rem;font-weight:800;letter-spacing:.24em;color:var(--gold);border:1px solid rgba(245,166,35,.35);border-radius:99px;padding:5px 14px;margin-bottom:18px;text-transform:uppercase}
+.mode h3{font-size:1.75rem;font-weight:900;letter-spacing:.05em;margin-bottom:12px}
+.mode p{color:var(--dim);margin-bottom:18px}
+.mode ul{list-style:none}
+.mode li{padding:6px 0;color:var(--dim);font-size:.96rem;display:flex;gap:10px;align-items:baseline}
+.mode li::before{content:"⚔";color:var(--gold);font-size:.75rem;flex:none}
+.mode li b{color:var(--txt);font-weight:600}
 
-  /* ---- ranks ---- */
-  .ranks { display: grid; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr)); gap: 16px; }
-  .rank { background: var(--card); border: 1px solid rgba(255,255,255,.07); border-radius: 16px;
-    padding: 26px 20px; text-align: center; transition: all .25s; position: relative; }
-  .rank:hover { transform: translateY(-5px); }
-  .rank .rname { font-weight: 800; font-size: 1.15rem; letter-spacing: 1.5px; }
-  .rank .rprice { font-size: 1.6rem; font-weight: 900; margin: 12px 0 4px; }
-  .rank .rper { color: var(--muted); font-size: .82rem; line-height: 1.7; margin-top: 12px; text-align: left; }
-  .rank .rper li { list-style: none; }
-  .rank .rper li::before { content: '✦ '; color: var(--gold-dim); }
-  .rank a { display: block; margin-top: 16px; padding: 10px; border-radius: 8px; font-weight: 700;
-    font-size: .9rem; text-decoration: none; transition: all .2s; }
-  .rank.viking   { border-top: 3px solid var(--green); }  .rank.viking .rname { color: var(--green); }
-  .rank.berserker{ border-top: 3px solid var(--aqua); }   .rank.berserker .rname { color: var(--aqua); }
-  .rank.jarl     { border-top: 3px solid var(--gold); box-shadow: 0 0 34px rgba(245,166,35,.12); }
-  .rank.jarl .rname { color: var(--gold); }
-  .rank.odin     { border-top: 3px solid var(--red); }    .rank.odin .rname { color: var(--red); }
-  .rank.allfader { border-top: 3px solid var(--purple); background: linear-gradient(170deg, #1c1530, var(--card)); }
-  .rank.allfader .rname { color: var(--purple); }
-  .rank a { background: rgba(255,255,255,.07); color: var(--text); }
-  .rank a:hover { background: var(--gold); color: #17120a; }
-  .rank .pop { position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
-    background: var(--gold); color: #17120a; font-size: .7rem; font-weight: 800; padding: 4px 12px;
-    border-radius: 20px; letter-spacing: 1px; white-space: nowrap; }
+/* features */
+.feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.feat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:30px 28px;transition:transform .28s,border-color .22s,box-shadow .3s}
+.feat:hover{transform:translateY(-6px);border-color:var(--line-hi);box-shadow:0 18px 44px -14px rgba(0,0,0,.6)}
+.feat .ico{width:52px;height:52px;display:grid;place-items:center;font-size:1.5rem;border-radius:14px;background:linear-gradient(160deg,rgba(245,166,35,.18),rgba(245,166,35,.05));border:1px solid rgba(245,166,35,.25);margin-bottom:18px}
+.feat h3{font-size:1.08rem;font-weight:700;letter-spacing:.05em;margin-bottom:8px;color:var(--txt)}
+.feat p{color:var(--dim);font-size:.93rem}
 
-  /* ---- features ---- */
-  .feats { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
-  .feat { background: var(--card); border: 1px solid rgba(255,255,255,.06); border-radius: 12px;
-    padding: 20px; display: flex; gap: 14px; align-items: flex-start; transition: border-color .2s; }
-  .feat:hover { border-color: rgba(85,255,255,.3); }
-  .feat .fi { font-size: 1.4rem; }
-  .feat b { display: block; margin-bottom: 4px; font-size: .95rem; }
-  .feat p { color: var(--muted); font-size: .84rem; line-height: 1.5; }
+/* treasury */
+#treasury{background:linear-gradient(180deg,transparent,rgba(63,143,255,.05) 30%,rgba(245,166,35,.05) 70%,transparent)}
+.loot{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;align-items:center;margin-bottom:44px}
+.loot img{width:100%;max-width:210px;margin:0 auto;filter:drop-shadow(0 20px 30px rgba(0,0,0,.6));transition:transform .35s cubic-bezier(.2,.9,.3,1.3)}
+.loot .li{animation:float 6s ease-in-out infinite}
+.loot .li:nth-child(2){animation-delay:-1.5s}.loot .li:nth-child(3){animation-delay:-3s}.loot .li:nth-child(4){animation-delay:-4.5s}.loot .li:nth-child(5){animation-delay:-2.2s}
+.loot .li:hover img{transform:scale(1.12) rotate(2deg)}
+.center{text-align:center}
 
-  /* ---- join ---- */
-  .join-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-  .join-card { background: var(--card); border-radius: 16px; padding: 28px; border: 1px solid rgba(255,255,255,.07); }
-  .join-card h3 { margin-bottom: 14px; font-size: 1.15rem; }
-  .join-card ol { margin-left: 20px; color: var(--muted); font-size: .93rem; line-height: 2; }
-  .join-card code { background: rgba(245,166,35,.12); color: var(--gold); padding: 2px 8px; border-radius: 6px; font-size: .88rem; }
+/* vote + discord */
+.cta-band{border-block:1px solid var(--line);background:linear-gradient(120deg,rgba(245,166,35,.10),rgba(126,232,59,.05) 50%,rgba(63,143,255,.08));text-align:center}
+.btnrow{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+.votechips{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+.votechips a,.votechips span{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 22px;color:var(--dim);font-weight:700;font-size:.9rem;transition:border-color .2s,color .2s,transform .15s}
+.votechips a:hover{border-color:var(--line-hi);color:var(--gold-2);transform:translateY(-2px)}
 
-  footer { border-top: 1px solid rgba(255,255,255,.07); padding: 34px 20px; text-align: center; color: var(--muted); font-size: .88rem; }
-  footer a { color: var(--gold); text-decoration: none; }
-  footer .foot-links { display: flex; gap: 22px; justify-content: center; margin-bottom: 14px; flex-wrap: wrap; }
+footer{border-top:1px solid var(--line);padding:52px 0 40px;text-align:center;color:var(--dim-2);font-size:.88rem;position:relative;z-index:1}
+footer .fbrand{display:flex;justify-content:center;align-items:center;gap:10px;font-family:'Cinzel',serif;font-weight:900;letter-spacing:.12em;color:var(--dim);margin-bottom:12px}
+footer .fbrand img{width:34px;height:34px;border-radius:50%}
+footer a{color:var(--dim)}footer a:hover{color:var(--gold-2)}
 
-  .toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(80px);
-    background: var(--gold); color: #17120a; font-weight: 700; padding: 12px 26px; border-radius: 10px;
-    transition: transform .3s; z-index: 100; }
-  .toast.show { transform: translateX(-50%) translateY(0); }
-  @media (max-width: 640px) { .nav-links a:not(.nav-cta) { display: none; } }
+.toast{position:fixed;bottom:34px;left:50%;transform:translateX(-50%) translateY(90px);background:linear-gradient(160deg,var(--gold-2),var(--gold));color:#221503;font-weight:800;padding:14px 30px;border-radius:14px;transition:transform .35s cubic-bezier(.2,.9,.3,1.3);z-index:99;box-shadow:0 16px 40px -8px rgba(245,166,35,.5)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(max-width:680px){.navlinks a.hide-sm{display:none}header{padding-top:130px}.hero-logo{width:150px;height:150px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
 </style>
 </head>
 <body>
-<div class="bg-glow"></div>
+<div class="grain"></div>
+<div class="embers" id="embers"></div>
 
-<nav>
-  <div class="nav-inner">
-    <div class="nav-logo"><img src="logo.png" alt="RagnarMC"><span><span class="r">RAGNAR</span><span class="mc">MC</span></span></div>
-    <div class="nav-links">
-      <a href="#gamemodes">Gamemodes</a>
-      <a href="#ranks">Ranks</a>
-      <a href="#join">How to join</a>
-      <a href="https://discord.gg/FnFb5zNdnD" target="_blank">Discord</a>
-      <a class="nav-cta" href="https://store.ragnarmc.com" target="_blank">Store</a>
+<nav id="nav"><div class="wrap">
+  <a class="brand" href="#top"><img src="assets/logo.webp" alt="" width="42" height="42"><span><b>RAGNAR</b>MC</span></a>
+  <div class="navlinks">
+    <a href="#ranks" class="hide-sm">Ranks</a>
+    <a href="#modes" class="hide-sm">Game Modes</a>
+    <a href="#treasury" class="hide-sm">Store</a>
+    <a href="#vote" class="hide-sm">Vote</a>
+    <a class="btn btn-gold" href="#top" onclick="copyIP(event)">⚔ Play Now</a>
+  </div>
+</div></nav>
+
+<header id="top">
+  <div class="wrap">
+    <div class="hero-logo"><img src="assets/logo.webp" alt="RagnarMC" width="190" height="190"></div>
+    <div class="kicker">Norse Minecraft Network</div>
+    <h1 class="title">RAGNARMC</h1>
+    <p class="tagline">Rise from <b>Thrall</b> to <b>Allfader</b>. Custom Gens farming, Skyblock in the clouds, 17 collectable pets, dungeons and live events — on <b>Java &amp; Bedrock</b>.</p>
+    <div class="ip-row">
+      <div class="ipbox">
+        <code id="ip">play.ragnarmc.com</code>
+        <button class="copy" onclick="copyIP(event)">COPY IP</button>
+      </div>
+      <span class="status"><span class="dot"></span><span id="status-txt">Checking the realm…</span></span>
     </div>
+    <div class="bedrock">Bedrock / PE: <b>play.ragnarmc.com</b> · port <b>25565</b> — same worlds, full crossplay</div>
   </div>
-</nav>
-
-<header>
-  <img class="hero-logo" src="logo.png" alt="RagnarMC logo">
-  <h1><span class="r">RAGNAR</span><span class="mc">MC</span></h1>
-  <p class="tagline"><b>Lifesteal</b> • <b>Gens</b> • <b>Skies</b></p>
-
-  <div class="ip-box" onclick="copyIP()" title="Click to copy">
-    <span class="ip">play.ragnarmc.com</span>
-    <span class="copy-hint">⧉ click to copy</span>
-  </div>
-  <div class="status-pill"><span class="dot" id="statusDot"></span><span id="statusText">Checking server status…</span></div>
-
-  <div class="hero-btns">
-    <a class="btn btn-gold" href="https://store.ragnarmc.com" target="_blank">🛒 Visit the Store</a>
-    <a class="btn btn-ghost" href="https://discord.gg/FnFb5zNdnD" target="_blank">Join our Discord</a>
+  <div class="banner-frame reveal">
+    <div class="banner-tilt" id="banner"><img src="assets/banner.webp" alt="RagnarMC — Norse Minecraft world" width="1500" height="500" fetchpriority="high"></div>
   </div>
 </header>
 
-<section id="gamemodes">
+<section id="ranks">
   <div class="wrap">
-    <h2 class="sec-title">Choose your <span>saga</span></h2>
-    <p class="sec-sub">Three realms. One legend — yours.</p>
-    <div class="modes">
-      <div class="mode">
-        <span class="emoji">⚙️</span>
-        <h3>Ragnar Gens</h3>
-        <p>Build generator empires, farm the great fields of Midgard, unlock 29 viking tool boosts — from Shield Wall raids to Ragnarök itself. Gen enchants, hatchable pets, offline earnings & more.</p>
-      </div>
-      <div class="mode">
-        <span class="emoji">🏝️</span>
-        <h3>Ragnar Skies</h3>
-        <p>Claim your floating island, expand it into a realm worthy of the gods. Classic skyblock — reforged with norse steel.</p>
-      </div>
-      <div class="mode">
-        <span class="soon">COMING SOON</span>
-        <span class="emoji">⚔️</span>
-        <h3>Lifesteal</h3>
-        <p>Steal hearts. Fear death. The most brutal realm of RagnarMC is being forged as we speak.</p>
-      </div>
+    <div class="sec-kicker">The Ladder</div>
+    <h2 class="sec-title">From Thrall to <em>Allfader</em></h2>
+    <p class="sec-sub">Five legendary ranks forged for the network — perks on every server, from bigger islands to /fly and thunder on join.</p>
+    <div class="ranks">
+      <div class="rank reveal tilt"><img src="assets/rank-viking.webp" alt="Viking rank" loading="lazy"><div class="nm">VIKING</div></div>
+      <div class="rank reveal tilt"><img src="assets/rank-berserker.webp" alt="Berserker rank" loading="lazy"><div class="nm">BERSERKER</div></div>
+      <div class="rank reveal tilt hot"><span class="tagchip">POPULAR</span><img src="assets/rank-jarl.webp" alt="Jarl rank" loading="lazy"><div class="nm">JARL</div></div>
+      <div class="rank reveal tilt"><img src="assets/rank-odin.webp" alt="Odin rank" loading="lazy"><div class="nm">ODIN</div></div>
+      <div class="rank reveal tilt"><img src="assets/rank-allfader.webp" alt="Allfader rank" loading="lazy"><div class="nm">ALLFADER</div></div>
+    </div>
+    <div class="center" style="margin-top:44px">
+      <a class="btn btn-gold" href="https://store.ragnarmc.com" target="_blank" rel="noopener">🛒 Browse the Store</a>
     </div>
   </div>
 </section>
 
-<section id="ranks" style="background: linear-gradient(180deg, transparent, rgba(245,166,35,.03), transparent);">
+<section id="modes" style="background:var(--bg-2)">
   <div class="wrap">
-    <h2 class="sec-title">Rise from <span>Thrall</span> to <span>Allfader</span></h2>
-    <p class="sec-sub">Permanent ranks — Gens, Skyblock &amp; network-wide perks, forever.</p>
-    <div class="ranks" id="rankGrid">
-      <div class="rank viking">
-        <div class="rname">VIKING</div><div class="rprice" data-rank="viking">49 kr</div>
-        <ul class="rper"><li>+10% tokens</li><li>+5% sell price</li><li>2h offline gens</li><li>/hat • 2 homes</li><li>🏝 Island border+ • team 9</li><li>📦 Daily kit • 2 vaults</li></ul>
-        <a href="https://store.ragnarmc.com" target="_blank">Purchase</a>
+    <div class="sec-kicker">Two Realms</div>
+    <h2 class="sec-title">Choose your <em>saga</em></h2>
+    <p class="sec-sub">Handcrafted game modes — your rank and your Discord link follow you across the whole network.</p>
+    <div class="modes">
+      <div class="mode reveal" data-rune="ᚠ">
+        <span class="chip">Ragnar Gens</span>
+        <h3>GENS &amp; FARMING</h3>
+        <p>Place generators, master four specialist farms and climb an economy tuned from first coin to war chest.</p>
+        <ul>
+          <li><b>Specialist farms</b> — Wheat for XP &amp; tokens, Cave for money, Pond for gems</li>
+          <li><b>17 Norse pets</b> — hatch Fenrir, Jörmungandr &amp; more, level to Awakened</li>
+          <li><b>29 tool abilities</b> — Mjölnir strikes, Ragnarök, Frenzy, Grand Trawl…</li>
+          <li><b>Dungeons &amp; events</b> with live Discord countdowns</li>
+          <li><b>Rebirth</b> prestige &amp; pet-power leaderboards</li>
+        </ul>
       </div>
-      <div class="rank berserker">
-        <div class="rname">BERSERKER</div><div class="rprice" data-rank="berserker">99 kr</div>
-        <ul class="rper"><li>+20% tokens</li><li>+10% sell price</li><li>4h offline gens</li><li>/feed • chat colors</li><li>🏝 Island border+ • team 10</li><li>📦 Daily kit • 3 vaults</li></ul>
-        <a href="https://store.ragnarmc.com" target="_blank">Purchase</a>
-      </div>
-      <div class="rank jarl">
-        <span class="pop">★ MOST POPULAR</span>
-        <div class="rname">JARL</div><div class="rprice" data-rank="jarl">199 kr</div>
-        <ul class="rper"><li><b>✈ /fly</b></li><li>+35% tokens</li><li>8h offline gens</li><li>/ec • /nick • 5 homes</li><li>🏝 Large island • team 12</li><li>📦 Daily leg-key kit • 5 vaults</li></ul>
-        <a href="https://store.ragnarmc.com" target="_blank">Purchase</a>
-      </div>
-      <div class="rank odin">
-        <div class="rname">ODIN</div><div class="rprice" data-rank="odin">399 kr</div>
-        <ul class="rper"><li>+50% tokens</li><li>+20% sell price</li><li>24h offline gens</li><li>/heal • /repair</li><li>🏝 Huge island • team 14</li><li>📦 Daily kit ×2 keys • 7 vaults</li></ul>
-        <a href="https://store.ragnarmc.com" target="_blank">Purchase</a>
-      </div>
-      <div class="rank allfader">
-        <div class="rname">ALLFADER</div><div class="rprice" data-rank="allfader">799 kr</div>
-        <ul class="rper"><li>⚡ Thunder entrance</li><li>✨ Particle aura</li><li>+75% tokens</li><li>48h offline gens</li><li>🏝 MAX island • team 16</li><li>📦 Best daily kit • 10 vaults</li></ul>
-        <a href="https://store.ragnarmc.com" target="_blank">Purchase</a>
+      <div class="mode reveal" data-rune="ᛉ">
+        <span class="chip">Ragnar Skies</span>
+        <h3>SKYBLOCK</h3>
+        <p>Build an island empire in the clouds with a crew of up to 16 — minions grind while you expand.</p>
+        <ul>
+          <li><b>Custom Skyblock</b> with island upgrades &amp; jobs</li>
+          <li><b>Minions</b> that work while you sleep</li>
+          <li><b>Magical, Minions &amp; Legendary</b> crates</li>
+          <li><b>Cross-server chat</b> bridged into Discord</li>
+          <li><b>Vote rewards</b> &amp; vote parties</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -237,98 +262,118 @@
 
 <section id="features">
   <div class="wrap">
-    <h2 class="sec-title">Forged <span>different</span></h2>
-    <p class="sec-sub">No copy-paste server. Everything below is custom-built.</p>
+    <div class="sec-kicker">Why Ragnar</div>
+    <h2 class="sec-title">Forged <em>different</em></h2>
+    <p class="sec-sub">No cookie-cutter setup — every system on RagnarMC is custom-built and constantly tuned.</p>
     <div class="feats">
-      <div class="feat"><span class="fi">🗡️</span><div><b>29 Tool Boosts</b><p>Mjölnir strikes, Shield Wall raids, Ragnarök — earn tokens farming, spend them on power.</p></div></div>
-      <div class="feat"><span class="fi">⚡</span><div><b>Gen Enchants</b><p>Speed, Fortune, Overflow, Quality & Auto-Sell — upgrade every generator individually.</p></div></div>
-      <div class="feat"><span class="fi">🥚</span><div><b>Hatchable Gen Pets</b><p>Six companions from Miner Mole to Yggdrasil Sprout. Hatch, level, profit.</p></div></div>
-      <div class="feat"><span class="fi">⌛</span><div><b>Offline Earnings</b><p>Your generators keep working while you sleep. Claim the loot when you return.</p></div></div>
-      <div class="feat"><span class="fi">🪙</span><div><b>Coinflip Gambling</b><p>Bet money or tokens against other players. Winner takes all.</p></div></div>
-      <div class="feat"><span class="fi">📱</span><div><b>Java + Bedrock</b><p>Play from PC, phone or console — no Java account needed for Bedrock.</p></div></div>
+      <div class="feat reveal"><div class="ico">🐾</div><h3>Collectable Norse Pets</h3><p>17 pets with real powers, pity-protected eggs, awakening at max level, naming, signature auras and a Pet of the Day buff.</p></div>
+      <div class="feat reveal"><div class="ico">🗡</div><h3>Live Events</h3><p>Double XP, Pet Frenzy, +1 Gens Tier and boss dungeons — every event announced in Discord with a live countdown.</p></div>
+      <div class="feat reveal"><div class="ico">🎰</div><h3>Crates &amp; Coinflips</h3><p>Vote, Common and Legendary crates, plus public coinflips — every big win broadcast for the whole server to witness.</p></div>
+      <div class="feat reveal"><div class="ico">💬</div><h3>Discord-linked Chat</h3><p>Game chat mirrors into Discord per server. Link once with /discordlink and talk to the network from your phone.</p></div>
+      <div class="feat reveal"><div class="ico">📱</div><h3>Full Crossplay</h3><p>Java and Bedrock on the same worlds, same address. PC, console or phone — the shield wall has room for all.</p></div>
+      <div class="feat reveal"><div class="ico">🛡</div><h3>Grind Safely</h3><p>Soulbound tools you can never lose, keep-inventory everywhere and modern anti-cheat guarding the realms.</p></div>
     </div>
   </div>
 </section>
 
-<section id="join">
+<section id="treasury">
   <div class="wrap">
-    <h2 class="sec-title">How to <span>join</span></h2>
-    <p class="sec-sub">Two editions, one Valhalla.</p>
-    <div class="join-grid">
-      <div class="join-card">
-        <h3>☕ Java Edition (PC)</h3>
-        <ol>
-          <li>Multiplayer → Add Server</li>
-          <li>Address: <code>play.ragnarmc.com</code></li>
-          <li>Version 1.9 – latest <b>(1.21+ recommended)</b></li>
-        </ol>
-      </div>
-      <div class="join-card">
-        <h3>📱 Bedrock (Phone / Console / Win10)</h3>
-        <ol>
-          <li>Servers → Add Server</li>
-          <li>Address: <code>play.ragnarmc.com</code></li>
-          <li>Port: <code>25565</code> — no Java account needed!</li>
-        </ol>
-      </div>
+    <div class="sec-kicker">The Treasury</div>
+    <h2 class="sec-title">Loot worth <em>raiding for</em></h2>
+    <p class="sec-sub">Pet eggs, Time Warps, crate keys and gems — earn them in-game or claim them instantly from the store.</p>
+    <div class="loot">
+      <div class="li reveal"><img src="assets/egg-rare.webp" alt="Rare Pet Egg" loading="lazy"></div>
+      <div class="li reveal"><img src="assets/egg-epic.webp" alt="Epic Pet Egg" loading="lazy"></div>
+      <div class="li reveal"><img src="assets/egg-mythic.webp" alt="Mythic Pet Egg" loading="lazy"></div>
+      <div class="li reveal"><img src="assets/timewarp.webp" alt="Time Warp" loading="lazy"></div>
+      <div class="li reveal"><img src="assets/gems.webp" alt="Gems" loading="lazy"></div>
+    </div>
+    <div class="center">
+      <a class="btn btn-gold" href="https://store.ragnarmc.com" target="_blank" rel="noopener">Open store.ragnarmc.com</a>
+      <p style="color:var(--dim-2);font-size:.85rem;margin-top:14px">Every purchase is announced in-game — the whole server types GG.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" id="vote">
+  <div class="wrap">
+    <div class="sec-kicker">Support the Realm</div>
+    <h2 class="sec-title">Vote &amp; get <em>rewarded</em></h2>
+    <p class="sec-sub" style="margin-bottom:0">Every vote drops a Vote Crate key in your inventory — and at 50 network votes a <b style="color:var(--gold-2)">Vote Party</b> showers everyone online.</p>
+    <div class="votechips" id="votelinks">
+      <span>⚔ Vote links land here very soon</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap center">
+    <div class="sec-kicker">Join the War Band</div>
+    <h2 class="sec-title">Your longship is <em>waiting</em></h2>
+    <p class="sec-sub">News, events, giveaways and the live game-chat bridge — it all happens in our Discord.</p>
+    <div class="btnrow">
+      <a class="btn btn-gold" href="#top" onclick="copyIP(event)">⚔ Copy IP &amp; Play</a>
+      <a class="btn btn-glass" href="https://discord.gg/FnFb5zNdnD" target="_blank" rel="noopener">💬 Join Discord</a>
+      <a class="btn btn-glass" href="https://store.ragnarmc.com" target="_blank" rel="noopener">🛒 Store</a>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="foot-links">
-    <a href="https://store.ragnarmc.com" target="_blank">Store</a>
-    <a href="https://discord.gg/FnFb5zNdnD" target="_blank">Discord</a>
-    <a href="#gamemodes">Gamemodes</a>
-    <a href="#ranks">Ranks</a>
-  </div>
-  <p>© 2026 RagnarMC — not affiliated with Mojang or Microsoft.</p>
+  <div class="fbrand"><img src="assets/logo.webp" alt=""><span><b style="color:var(--gold)">RAGNAR</b>MC</span></div>
+  <div>play.ragnarmc.com — Norse Minecraft Network · <a href="https://store.ragnarmc.com">Store</a> · <a href="https://discord.gg/FnFb5zNdnD">Discord</a></div>
+  <div style="margin-top:10px;opacity:.55">Not affiliated with Mojang Studios or Microsoft.</div>
 </footer>
 
-<div class="toast" id="toast">✓ IP copied — see you in Valhalla!</div>
+<div class="toast" id="toast">⚔ IP copied — see you in Valhalla!</div>
 
 <script>
-// ---- kopiera IP ----
-function copyIP() {
-  navigator.clipboard.writeText('play.ragnarmc.com').then(() => {
-    const t = document.getElementById('toast');
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2500);
+function copyIP(e){
+  if(e){e.preventDefault()}
+  navigator.clipboard.writeText('play.ragnarmc.com').then(()=>{
+    const t=document.getElementById('toast');t.classList.add('show');
+    clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2300);
   });
 }
-
-// ---- live serverstatus (mcstatus.io, gratis publikt API) ----
-fetch('https://api.mcstatus.io/v2/status/java/play.ragnarmc.com')
-  .then(r => r.json())
-  .then(d => {
-    const dot = document.getElementById('statusDot');
-    const txt = document.getElementById('statusText');
-    if (d.online) {
-      dot.classList.add('on');
-      txt.textContent = d.players.online + ' player' + (d.players.online === 1 ? '' : 's') + ' online now';
-    } else {
-      txt.textContent = 'Server offline — check Discord for news';
-    }
-  }).catch(() => {
-    document.getElementById('statusText').textContent = 'play.ragnarmc.com';
-  });
-
-// ---- live-priser från Tebex Headless API (publik token — säker i frontend) ----
-const TEBEX_TOKEN = '13oqp-ac1707bfc063c0af7f63d41ea297c8242a235425';
-fetch('https://headless.tebex.io/api/accounts/' + TEBEX_TOKEN + '/categories?includePackages=1')
-  .then(r => r.json())
-  .then(d => {
-    const packs = (d.data || []).flatMap(c => c.packages || []);
-    document.querySelectorAll('.rprice[data-rank]').forEach(el => {
-      const p = packs.find(x => x.name.toLowerCase().includes(el.dataset.rank));
-      if (p && p.total_price != null) {
-        el.textContent = p.total_price + ' ' + (p.currency || 'kr');
-        // länka köpknappen direkt till paketet i butiken
-        const btn = el.parentElement.querySelector('a');
-        if (btn && p.id) btn.href = 'https://store.ragnarmc.com/package/' + p.id;
-      }
+fetch('https://api.mcsrvstat.us/3/play.ragnarmc.com').then(r=>r.json()).then(d=>{
+  const el=document.getElementById('status-txt');
+  if(d.online){const n=d.players?.online??0;el.textContent=`Online — ${n} warrior${n===1?'':'s'} in the realm`;}
+  else{el.textContent='Realm restarting — moments away';}
+}).catch(()=>{document.getElementById('status-txt').textContent='Online'});
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>24),{passive:true});
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.style.transitionDelay=(e.target.dataset.d||0)+'ms';e.target.classList.add('in');io.unobserve(e.target)}
+}),{threshold:.14});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.dataset.d=(i%5)*90;io.observe(el)});
+const fine=matchMedia('(pointer:fine)').matches&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(fine){
+  document.querySelectorAll('.tilt').forEach(card=>{
+    card.addEventListener('mousemove',ev=>{
+      const r=card.getBoundingClientRect();
+      const x=(ev.clientX-r.left)/r.width-.5, y=(ev.clientY-r.top)/r.height-.5;
+      card.style.transform=`translateY(-10px) scale(1.03) rotateX(${-y*10}deg) rotateY(${x*12}deg)`;
     });
-  }).catch(() => {}); // butiken visas med fallback-priser om API:t inte svarar
+    card.addEventListener('mouseleave',()=>card.style.transform='');
+  });
+  const b=document.getElementById('banner');
+  b.parentElement.addEventListener('mousemove',ev=>{
+    const r=b.getBoundingClientRect();
+    const x=(ev.clientX-r.left)/r.width-.5, y=(ev.clientY-r.top)/r.height-.5;
+    b.style.transform=`rotateX(${-y*6}deg) rotateY(${x*8}deg)`;
+  });
+  b.parentElement.addEventListener('mouseleave',()=>b.style.transform='');
+}
+const em=document.getElementById('embers');
+for(let i=0;i<22;i++){
+  const s=document.createElement('span');
+  s.style.left=Math.random()*100+'vw';
+  s.style.animationDuration=(9+Math.random()*14)+'s';
+  s.style.animationDelay=(-Math.random()*20)+'s';
+  s.style.setProperty('--sway',(Math.random()*120-60)+'px');
+  const sc=.6+Math.random()*1.6;s.style.width=s.style.height=(3*sc)+'px';
+  em.appendChild(s);
+}
 </script>
 </body>
 </html>
