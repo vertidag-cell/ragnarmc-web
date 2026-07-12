@@ -10,6 +10,8 @@
 <meta property="og:image" content="https://vertidag-cell.github.io/ragnarmc-web/assets/banner.webp">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#060a13">
+<link rel="canonical" href="https://vertidag-cell.github.io/ragnarmc-web/">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RagnarMC","url":"https://www.ragnarmc.com","logo":"https://vertidag-cell.github.io/ragnarmc-web/assets/logo.webp","sameAs":["https://discord.gg/FnFb5zNdnD","https://store.ragnarmc.com"]}</script>
 <link rel="icon" type="image/webp" href="assets/logo.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -186,9 +188,38 @@ footer a{color:var(--dim)}footer a:hover{color:var(--gold-2)}
 .reveal.in{opacity:1;transform:none}
 @media(max-width:680px){.navlinks a.hide-sm{display:none}header{padding-top:130px}.hero-logo{width:150px;height:150px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+
+/* scroll progress */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:70;background:linear-gradient(90deg,var(--gold-3),var(--gold-2));box-shadow:0 0 12px rgba(245,166,35,.6)}
+/* rank-identiteter */
+.rank{--ac:var(--gold)}
+.rank.c-v{--ac:#57bb5f}.rank.c-b{--ac:#55ffff}.rank.c-j{--ac:#f5a623}.rank.c-o{--ac:#ff5e5e}.rank.c-a{--ac:#b57aff}
+.rank:hover{border-color:var(--ac);box-shadow:0 26px 50px -16px rgba(0,0,0,.7),0 0 46px -8px var(--ac)}
+.rank:hover .nm{color:var(--ac)}
+.rank .tier{position:absolute;top:10px;left:12px;font-family:'Cinzel',serif;font-weight:900;font-size:.72rem;letter-spacing:.18em;color:var(--dim-2)}
+.rank:hover .tier{color:var(--ac)}
+/* stats-remsa */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;max-width:860px;margin:64px auto 0;padding:0 26px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 12px;text-align:center;backdrop-filter:blur(10px);transition:border-color .25s,transform .25s}
+.stat:hover{border-color:var(--line-hi);transform:translateY(-4px)}
+.stat b{display:block;font-family:'Cinzel',serif;font-size:2.3rem;font-weight:900;line-height:1.1;background:linear-gradient(180deg,var(--gold-2),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat span{color:var(--dim);font-size:.82rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+/* how to join */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;counter-reset:step}
+.step{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:36px 30px 30px;transition:transform .28s,border-color .22s,box-shadow .3s}
+.step:hover{transform:translateY(-6px);border-color:var(--line-hi);box-shadow:var(--shadow)}
+.step::before{counter-increment:step;content:counter(step,upper-roman);position:absolute;top:-18px;left:26px;font-family:'Cinzel',serif;font-weight:900;font-size:1rem;letter-spacing:.1em;color:#221503;background:linear-gradient(160deg,var(--gold-2),var(--gold));padding:7px 16px;border-radius:10px;box-shadow:0 8px 22px -6px rgba(245,166,35,.55)}
+.step h3{font-size:1.06rem;letter-spacing:.06em;margin:6px 0 10px;color:var(--txt)}
+.step p{color:var(--dim);font-size:.94rem}
+.step code{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:8px;padding:2px 10px;color:var(--gold-2);font-weight:700;white-space:nowrap}
+/* loot-tooltips */
+.li{position:relative}
+.li[data-tip]::after{content:attr(data-tip);position:absolute;left:50%;bottom:-8px;transform:translateX(-50%) translateY(8px);background:rgba(8,12,22,.96);border:1px solid var(--line-hi);color:var(--gold-2);font-size:.78rem;font-weight:700;padding:8px 14px;border-radius:10px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;z-index:5}
+.li[data-tip]:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
+<div class="progress" id="progress"></div>
 <div class="grain"></div>
 <div class="sky"><div class="stars"></div><div class="stars2"></div><div class="aurora a1"></div><div class="aurora a2"></div><div class="aurora a3"></div></div>
 <div class="embers" id="embers"></div>
@@ -220,7 +251,13 @@ footer a{color:var(--dim)}footer a:hover{color:var(--gold-2)}
     <div class="bedrock">Bedrock / PE: <b>play.ragnarmc.com</b> · port <b>25565</b> — same worlds, full crossplay</div>
   </div>
   <div class="banner-frame reveal">
-    <div class="banner-tilt" id="banner"><img src="assets/banner.webp" alt="RagnarMC — Norse Minecraft world" width="1500" height="500" fetchpriority="high"></div>
+    <div class="banner-tilt" id="banner"><img src="assets/banner.webp" alt="RagnarMC — Norse Minecraft world" width="1800" height="600" fetchpriority="high"></div>
+  </div>
+  <div class="stats reveal">
+    <div class="stat"><b data-count="17">0</b><span>Norse Pets</span></div>
+    <div class="stat"><b data-count="29">0</b><span>Tool Abilities</span></div>
+    <div class="stat"><b data-count="5">0</b><span>Ranks</span></div>
+    <div class="stat"><b data-count="2">0</b><span>Realms</span></div>
   </div>
 </header>
 
@@ -230,11 +267,11 @@ footer a{color:var(--dim)}footer a:hover{color:var(--gold-2)}
     <h2 class="sec-title">From Thrall to <em>Allfader</em></h2>
     <p class="sec-sub">Five legendary ranks forged for the network — perks on every server, from bigger islands to /fly and thunder on join.</p>
     <div class="ranks">
-      <div class="rank reveal tilt"><img src="assets/rank-viking.webp" alt="Viking rank" loading="lazy"><div class="nm">VIKING</div></div>
-      <div class="rank reveal tilt"><img src="assets/rank-berserker.webp" alt="Berserker rank" loading="lazy"><div class="nm">BERSERKER</div></div>
-      <div class="rank reveal tilt hot"><span class="tagchip">POPULAR</span><img src="assets/rank-jarl.webp" alt="Jarl rank" loading="lazy"><div class="nm">JARL</div></div>
-      <div class="rank reveal tilt"><img src="assets/rank-odin.webp" alt="Odin rank" loading="lazy"><div class="nm">ODIN</div></div>
-      <div class="rank reveal tilt"><img src="assets/rank-allfader.webp" alt="Allfader rank" loading="lazy"><div class="nm">ALLFADER</div></div>
+      <div class="rank reveal tilt c-v"><span class="tier">TIER I</span><img src="assets/rank-viking.webp" alt="Viking rank" loading="lazy"><div class="nm">VIKING</div></div>
+      <div class="rank reveal tilt c-b"><span class="tier">TIER II</span><img src="assets/rank-berserker.webp" alt="Berserker rank" loading="lazy"><div class="nm">BERSERKER</div></div>
+      <div class="rank reveal tilt hot c-j"><span class="tier">TIER III</span><span class="tagchip">POPULAR</span><img src="assets/rank-jarl.webp" alt="Jarl rank" loading="lazy"><div class="nm">JARL</div></div>
+      <div class="rank reveal tilt c-o"><span class="tier">TIER IV</span><img src="assets/rank-odin.webp" alt="Odin rank" loading="lazy"><div class="nm">ODIN</div></div>
+      <div class="rank reveal tilt c-a"><span class="tier">TIER V</span><img src="assets/rank-allfader.webp" alt="Allfader rank" loading="lazy"><div class="nm">ALLFADER</div></div>
     </div>
     <div class="center" style="margin-top:44px">
       <a class="btn btn-gold" href="https://store.ragnarmc.com" target="_blank" rel="noopener">🛒 Browse the Store</a>
@@ -298,15 +335,28 @@ footer a{color:var(--dim)}footer a:hover{color:var(--gold-2)}
     <h2 class="sec-title">Loot worth <em>raiding for</em></h2>
     <p class="sec-sub">Pet eggs, Time Warps, crate keys and gems — earn them in-game or claim them instantly from the store.</p>
     <div class="loot">
-      <div class="li reveal"><img src="assets/egg-rare.webp" alt="Rare Pet Egg" loading="lazy"></div>
-      <div class="li reveal"><img src="assets/egg-epic.webp" alt="Epic Pet Egg" loading="lazy"></div>
-      <div class="li reveal"><img src="assets/egg-mythic.webp" alt="Mythic Pet Egg" loading="lazy"></div>
-      <div class="li reveal"><img src="assets/timewarp.webp" alt="Time Warp" loading="lazy"></div>
-      <div class="li reveal"><img src="assets/gems.webp" alt="Gems" loading="lazy"></div>
+      <div class="li reveal" data-tip="Rare 60% • Epic 15% — pity-protected"><img src="assets/egg-rare.webp" alt="Rare Pet Egg" loading="lazy"></div>
+      <div class="li reveal" data-tip="Epic 50% • Mythic 10% — guaranteed Rare+"><img src="assets/egg-epic.webp" alt="Epic Pet Egg" loading="lazy"></div>
+      <div class="li reveal" data-tip="Mythic 45% — your best shot at FENRIR"><img src="assets/egg-mythic.webp" alt="Mythic Pet Egg" loading="lazy"></div>
+      <div class="li reveal" data-tip="Collects 1h of gen production — instantly"><img src="assets/timewarp.webp" alt="Time Warp" loading="lazy"></div>
+      <div class="li reveal" data-tip="Spend on eggs, /fly, sell wands &amp; keys"><img src="assets/gems.webp" alt="Gems" loading="lazy"></div>
     </div>
     <div class="center">
       <a class="btn btn-gold" href="https://store.ragnarmc.com" target="_blank" rel="noopener">Open store.ragnarmc.com</a>
       <p style="color:var(--dim-2);font-size:.85rem;margin-top:14px">Every purchase is announced in-game — the whole server types GG.</p>
+    </div>
+  </div>
+</section>
+
+<section id="join" style="background:var(--bg-2)">
+  <div class="wrap">
+    <div class="sec-kicker">Set Sail</div>
+    <h2 class="sec-title">Join in <em>30 seconds</em></h2>
+    <p class="sec-sub">PC, konsol eller mobil — alla vägar leder till Midgård.</p>
+    <div class="steps">
+      <div class="step reveal"><h3>☕ JAVA EDITION</h3><p>Multiplayer → Add Server → paste <code>play.ragnarmc.com</code> — done. Version 1.21.x.</p></div>
+      <div class="step reveal"><h3>📱 BEDROCK / CONSOLE</h3><p>Servers → Add Server → address <code>play.ragnarmc.com</code>, port <code>25565</code>. Same worlds as Java.</p></div>
+      <div class="step reveal"><h3>💬 LINK DISCORD</h3><p>Run <code>/discordlink</code> in-game and chat with the network from anywhere — plus event pings and giveaways.</p></div>
     </div>
   </div>
 </section>
@@ -357,7 +407,21 @@ fetch('https://api.mcsrvstat.us/3/play.ragnarmc.com').then(r=>r.json()).then(d=>
   else{el.textContent='Realm restarting — moments away';}
 }).catch(()=>{document.getElementById('status-txt').textContent='Online'});
 const nav=document.getElementById('nav');
-addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>24),{passive:true});
+const prog=document.getElementById('progress');
+const heroLogo=document.querySelector('.hero-logo');
+addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',scrollY>24);
+  const h=document.documentElement;
+  prog.style.width=(scrollY/(h.scrollHeight-innerHeight)*100)+'%';
+  if(heroLogo&&scrollY<800){heroLogo.style.translate='0 '+(scrollY*.12)+'px'}
+},{passive:true});
+// räknare
+const cio=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;cio.unobserve(e.target);
+  const el=e.target,end=+el.dataset.count,t0=performance.now();
+  (function tick(t){const p=Math.min(1,(t-t0)/1200),v=Math.round(end*(1-Math.pow(1-p,3)));el.textContent=v;if(p<1)requestAnimationFrame(tick)})(t0);
+}),{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
 const io=new IntersectionObserver(es=>es.forEach(e=>{
   if(e.isIntersecting){e.target.style.transitionDelay=(e.target.dataset.d||0)+'ms';e.target.classList.add('in');io.unobserve(e.target)}
 }),{threshold:.14});
