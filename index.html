@@ -216,6 +216,20 @@ footer a{color:var(--dim)}footer a:hover{color:var(--gold-2)}
 .li{position:relative}
 .li[data-tip]::after{content:attr(data-tip);position:absolute;left:50%;bottom:-8px;transform:translateX(-50%) translateY(8px);background:rgba(8,12,22,.96);border:1px solid var(--line-hi);color:var(--gold-2);font-size:.78rem;font-weight:700;padding:8px 14px;border-radius:10px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;z-index:5}
 .li[data-tip]:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* crates */
+.crates{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:760px;margin:0 auto 44px}
+.crate{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--panel);transition:transform .3s,border-color .25s,box-shadow .3s}
+.crate:hover{transform:translateY(-8px) scale(1.02);border-color:var(--line-hi);box-shadow:0 30px 60px -18px rgba(0,0,0,.75),0 0 50px -12px rgba(245,166,35,.4)}
+.crate img{width:100%;transition:transform .4s}
+.crate:hover img{transform:scale(1.06)}
+.crate .lbl{position:absolute;left:0;right:0;bottom:0;padding:40px 20px 16px;text-align:center;font-family:'Cinzel',serif;font-weight:900;letter-spacing:.14em;font-size:1rem;color:var(--gold-2);background:linear-gradient(180deg,transparent,rgba(4,7,13,.92) 55%)}
+/* shooting stars */
+.shoot{position:fixed;top:0;left:0;width:130px;height:2px;z-index:0;pointer-events:none;border-radius:2px;background:linear-gradient(90deg,rgba(255,255,255,.9),transparent);opacity:0;transform-origin:left}
+/* back to top */
+.totop{position:fixed;right:26px;bottom:26px;z-index:65;width:50px;height:50px;border-radius:14px;display:grid;place-items:center;background:var(--panel-2);border:1px solid var(--line);color:var(--gold-2);font-size:1.25rem;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .3s,transform .2s,border-color .2s;backdrop-filter:blur(10px)}
+.totop.show{opacity:1;pointer-events:auto}
+.totop:hover{transform:translateY(-3px);border-color:var(--line-hi)}
 </style>
 </head>
 <body>
@@ -341,6 +355,10 @@ footer a{color:var(--dim)}footer a:hover{color:var(--gold-2)}
       <div class="li reveal" data-tip="Collects 1h of gen production — instantly"><img src="assets/timewarp.webp" alt="Time Warp" loading="lazy"></div>
       <div class="li reveal" data-tip="Spend on eggs, /fly, sell wands &amp; keys"><img src="assets/gems.webp" alt="Gems" loading="lazy"></div>
     </div>
+    <div class="crates">
+      <a class="crate reveal" href="https://store.ragnarmc.com" target="_blank" rel="noopener"><img src="assets/crate-legendary.webp" alt="Legendary Crate" loading="lazy"><span class="lbl">LEGENDARY CRATE</span></a>
+      <a class="crate reveal" href="https://store.ragnarmc.com" target="_blank" rel="noopener"><img src="assets/crate-gens.webp" alt="Gens Crate" loading="lazy"><span class="lbl">GENS CRATE</span></a>
+    </div>
     <div class="center">
       <a class="btn btn-gold" href="https://store.ragnarmc.com" target="_blank" rel="noopener">Open store.ragnarmc.com</a>
       <p style="color:var(--dim-2);font-size:.85rem;margin-top:14px">Every purchase is announced in-game — the whole server types GG.</p>
@@ -391,6 +409,7 @@ footer a{color:var(--dim)}footer a:hover{color:var(--gold-2)}
   <div style="margin-top:10px;opacity:.55">Not affiliated with Mojang Studios or Microsoft.</div>
 </footer>
 
+<button class="totop" id="totop" onclick="scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">⌃</button>
 <div class="toast" id="toast">⚔ IP copied — see you in Valhalla!</div>
 
 <script>
@@ -437,6 +456,20 @@ if(fine){
     card.addEventListener('mouseleave',()=>card.style.transform='');
   });
 }
+// stjärnfall
+if(fine){
+  (function shoot(){
+    const s=document.createElement('div');s.className='shoot';
+    const x=Math.random()*70+10, y=Math.random()*38+4, ang=25+Math.random()*20;
+    s.style.left=x+'vw';s.style.top=y+'vh';s.style.transform=`rotate(${ang}deg)`;
+    document.body.appendChild(s);
+    s.animate([{opacity:0,translate:'0 0'},{opacity:.95,offset:.12},{opacity:0,translate:'46vw 30vh'}],{duration:1100,easing:'ease-out'}).onfinish=()=>s.remove();
+    setTimeout(shoot,6000+Math.random()*11000);
+  })();
+}
+// back to top
+const tt=document.getElementById('totop');
+addEventListener('scroll',()=>tt.classList.toggle('show',scrollY>700),{passive:true});
 const em=document.getElementById('embers');
 for(let i=0;i<34;i++){
   const s=document.createElement('span');
